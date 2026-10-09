@@ -1,0 +1,2 @@
+7b968fde118beebc24342d3faf8cacfa750331c56e7c0f35cb123ec0c6a6943a  GenToLo-v1.0.0.apk
+7b968fde118beebc24342d3faf8cacfa750331c56e7c0f35cb123ec0c6a6943a  app-release.apk
