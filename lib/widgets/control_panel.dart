@@ -43,7 +43,7 @@ class ControlPanel extends StatelessWidget {
             // Avviso o barra di stato in modalità Tombola
             if (controller.isTombolaMode) ...[
               Container(
-                height: 38.0,
+                height: 40.0,
                 margin: const EdgeInsets.only(bottom: 10.0),
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 decoration: BoxDecoration(
@@ -74,8 +74,8 @@ class ControlPanel extends StatelessWidget {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 isTombolaFinished
-                                    ? 'Tombola completata!'
-                                    : 'Tombola: ${controller.remainingTombolaCount} ${controller.remainingTombolaCount == 1 ? 'numero' : 'numeri'} nel sacchetto',
+                                    ? l10n.tombolaCompletedBanner
+                                    : l10n.tombolaRemainingBanner(controller.remainingTombolaCount),
                                 style: TextStyle(
                                   color: isTombolaFinished ? Colors.orangeAccent : Colors.white70,
                                   fontSize: 13.0,
@@ -96,13 +96,11 @@ class ControlPanel extends StatelessWidget {
                       child: TextButton(
                         onPressed: isAnimating ? null : () => controller.resetTombolaSession(),
                         style: TextButton.styleFrom(
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          visualDensity: VisualDensity.compact,
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                          minimumSize: Size.zero,
+                          minimumSize: const Size(0, 36.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
                         ),
                         child: Text(
-                          'Nuova Partita',
+                          l10n.newGame,
                           style: TextStyle(
                             color: theme.primaryAccent,
                             fontSize: 12.0,
@@ -180,7 +178,8 @@ class ControlPanel extends StatelessWidget {
       button: true,
       enabled: !isDisabled,
       selected: isActive,
-      label: '$title${isActive ? ", selezionato" : ""}',
+      excludeSemantics: true,
+      label: title,
       child: Material(
         color: Colors.transparent,
         child: InkWell(

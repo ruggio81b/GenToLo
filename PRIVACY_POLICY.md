@@ -5,6 +5,8 @@
 **Titolare del Trattamento**: Fabrizio Ruggiano (persona fisica / sviluppatore indipendente)  
 **Email di contatto**: ruggio81b@gmail.com  
 
+> 🌐 **Lingua / Language**: **Italiano** | [English](PRIVACY_POLICY.en.md)
+
 ---
 
 ## 1. Premessa e Principi Generali

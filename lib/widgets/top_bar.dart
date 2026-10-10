@@ -20,18 +20,20 @@ class TopBar extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
       child: Row(
         children: [
           // Badge / Pulsante per aprire la finestrella delle impostazioni di estrazione
           Semantics(
             button: true,
-            label: 'Apri impostazioni estrazione: ${controller.drawCount} numeri da 1 a ${controller.maxNumber}',
+            excludeSemantics: true,
+            label: l10n.openSettingsSemantics(controller.drawCount, controller.maxNumber),
             child: InkWell(
               onTap: isAnimating ? null : () => _showSettingsDialog(context),
               borderRadius: BorderRadius.circular(10.0),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
+                constraints: const BoxConstraints(minHeight: 44.0),
                 padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                 decoration: BoxDecoration(
                   gradient: controller.isTombolaMode
@@ -67,9 +69,9 @@ class TopBar extends StatelessWidget {
                         Text(
                           controller.isTombolaMode
                               ? (controller.isTombolaFinished
-                                  ? 'TOMBOLA COMPLETATA'
-                                  : 'TOMBOLA (${controller.remainingTombolaCount} ${controller.remainingTombolaCount == 1 ? 'RIMASTO' : 'RIMASTI'})')
-                              : '${controller.drawCount} ESTRATTI • 1-${controller.maxNumber}',
+                                  ? l10n.tombolaCompletedBadge
+                                  : l10n.tombolaRemainingBadge(controller.remainingTombolaCount))
+                              : l10n.standardDrawnBadge(controller.drawCount, controller.maxNumber),
                           style: TextStyle(
                             color: theme.badgeTextColor.withValues(alpha: 0.85),
                             fontWeight: FontWeight.w700,
@@ -99,7 +101,7 @@ class TopBar extends StatelessWidget {
             onPressed: () => _showInfoDialog(context),
             style: TextButton.styleFrom(
               backgroundColor: theme.boardBackground,
-              minimumSize: const Size(44.0, 38.0),
+              minimumSize: const Size(44.0, 44.0),
               padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 6.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
@@ -139,7 +141,7 @@ class TopBar extends StatelessWidget {
             child: Builder(
               builder: (buttonContext) {
                 return Tooltip(
-                  message: 'Condividi combinazione estratta',
+                  message: l10n.shareCombinationTooltip,
                   child: TextButton(
                     onPressed: hasNumbers && !isAnimating
                         ? () async {
@@ -179,7 +181,7 @@ class TopBar extends StatelessWidget {
                         : null,
                     style: TextButton.styleFrom(
                       backgroundColor: theme.boardBackground,
-                      minimumSize: const Size(40.0, 38.0),
+                      minimumSize: const Size(44.0, 44.0),
                       padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 6.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -206,43 +208,52 @@ class TopBar extends StatelessWidget {
           AnimatedOpacity(
             opacity: hasNumbers && !isAnimating ? 1.0 : 0.35,
             duration: const Duration(milliseconds: 300),
-            child: TextButton.icon(
-              onPressed: hasNumbers && !isAnimating
-                  ? () => controller.toggleSortOrder()
-                  : null,
-              icon: Icon(
-                controller.isSortedAscending
-                    ? Icons.check_circle_outline_rounded
-                    : Icons.sort_rounded,
-                size: 17.0,
-                color: controller.isSortedAscending
-                    ? AppTheme.emeraldFlash
-                    : theme.primaryAccent,
-              ),
-              label: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  controller.isSortedAscending ? l10n.sortAscending : l10n.sort,
-                  style: TextStyle(
-                    color: controller.isSortedAscending
-                        ? AppTheme.emeraldFlash
-                        : theme.primaryAccent,
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.bold,
+            child: Semantics(
+              button: true,
+              enabled: hasNumbers && !isAnimating,
+              selected: controller.isSortedAscending,
+              excludeSemantics: true,
+              label: controller.isSortedAscending
+                  ? l10n.sortAscendingSemantics
+                  : l10n.sortDrawOrderSemantics,
+              child: TextButton.icon(
+                onPressed: hasNumbers && !isAnimating
+                    ? () => controller.toggleSortOrder()
+                    : null,
+                icon: Icon(
+                  controller.isSortedAscending
+                      ? Icons.check_circle_outline_rounded
+                      : Icons.sort_rounded,
+                  size: 17.0,
+                  color: controller.isSortedAscending
+                      ? AppTheme.emeraldFlash
+                      : theme.primaryAccent,
+                ),
+                label: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    controller.isSortedAscending ? l10n.sortAscending : l10n.sort,
+                    style: TextStyle(
+                      color: controller.isSortedAscending
+                          ? AppTheme.emeraldFlash
+                          : theme.primaryAccent,
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              style: TextButton.styleFrom(
-                backgroundColor: theme.boardBackground,
-                minimumSize: const Size(0, 38.0),
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  side: BorderSide(
-                    color: controller.isSortedAscending
-                        ? AppTheme.emeraldFlash.withValues(alpha: 0.6)
-                        : theme.primaryAccent.withValues(alpha: 0.5),
-                    width: 1.0,
+                style: TextButton.styleFrom(
+                  backgroundColor: theme.boardBackground,
+                  minimumSize: const Size(0, 44.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    side: BorderSide(
+                      color: controller.isSortedAscending
+                          ? AppTheme.emeraldFlash.withValues(alpha: 0.6)
+                          : theme.primaryAccent.withValues(alpha: 0.5),
+                      width: 1.0,
+                    ),
                   ),
                 ),
               ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gentolo/controllers/lottery_controller.dart';
+import 'package:gentolo/l10n/app_localizations.dart';
+import 'package:gentolo/main.dart';
 import 'package:gentolo/models/extraction_settings.dart';
 import 'package:gentolo/theme/app_theme.dart';
 
@@ -17,6 +19,8 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
   late int _drawCount;
   late int _maxNumber;
   late bool _isTombolaMode;
+  Locale? _selectedLocale;
+  bool _localeInitialized = false;
 
   @override
   void initState() {
@@ -26,7 +30,17 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
     _isTombolaMode = widget.controller.isTombolaMode;
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_localeInitialized) {
+      _selectedLocale = LocaleScope.of(context)?.locale;
+      _localeInitialized = true;
+    }
+  }
+
   void _showTombolaInfo(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -42,24 +56,21 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
           children: [
             Icon(Icons.info_outline_rounded, color: AppTheme.defaultTheme.primaryAccent),
             const SizedBox(width: 8.0),
-            const Text(
-              'Modalità Tombola',
-              style: TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
+            Text(
+              l10n.tombolaModeTitle,
+              style: const TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
           ],
         ),
-        content: const Text(
-          'In modalità Tombola le estrazioni sono progressive e senza reinserimento:\n\n'
-          '• I numeri estratti non tornano nel sacchetto e restano segnati.\n'
-          '• Alla successiva estrazione, i numeri nei cerchi scendono sul tabellone posizionandosi e oscurandosi nella loro casella per fare spazio ai nuovi estratti.\n'
-          '• La sessione prosegue fino all\'esaurimento dei numeri nel sacchetto.',
-          style: TextStyle(color: Colors.white70, fontSize: 14.0, height: 1.45),
+        content: Text(
+          l10n.tombolaExplanation,
+          style: const TextStyle(color: Colors.white70, fontSize: 14.0, height: 1.45),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
             child: Text(
-              'Ho capito',
+              l10n.understood,
               style: TextStyle(color: AppTheme.defaultTheme.primaryAccent, fontWeight: FontWeight.bold),
             ),
           ),
@@ -71,6 +82,7 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
   @override
   Widget build(BuildContext context) {
     const theme = AppTheme.defaultTheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Dialog(
       backgroundColor: const Color(0xFF092815),
@@ -93,10 +105,10 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
               children: [
                 Icon(Icons.tune_rounded, color: theme.primaryAccent, size: 22.0),
                 const SizedBox(width: 10.0),
-                const Expanded(
+                Expanded(
                   child: Text(
-                    'Impostazioni Estrazione',
-                    style: TextStyle(
+                    l10n.extractionSettingsTitle,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 17.5,
                       fontWeight: FontWeight.bold,
@@ -106,7 +118,7 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
                 IconButton(
                   icon: const Icon(Icons.close_rounded, color: Colors.white70),
                   onPressed: () => Navigator.of(context).pop(),
-                  tooltip: 'Chiudi',
+                  tooltip: l10n.close,
                 ),
               ],
             ),
@@ -118,9 +130,9 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Numeri da estrarre:',
-                  style: TextStyle(color: Colors.white, fontSize: 14.5, fontWeight: FontWeight.w600),
+                Text(
+                  l10n.numbersToExtractLabel,
+                  style: const TextStyle(color: Colors.white, fontSize: 14.5, fontWeight: FontWeight.w600),
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
@@ -169,9 +181,9 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Estrai numeri da 1 a:',
-                  style: TextStyle(color: Colors.white, fontSize: 14.5, fontWeight: FontWeight.w600),
+                Text(
+                  l10n.extractRangeLabel,
+                  style: const TextStyle(color: Colors.white, fontSize: 14.5, fontWeight: FontWeight.w600),
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
@@ -215,7 +227,7 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
               Padding(
                 padding: const EdgeInsets.only(left: 4.0, bottom: 8.0),
                 child: Text(
-                  'I numeri da ${_maxNumber + 1} a 90 resteranno nascosti sul tabellone.',
+                  l10n.hiddenNumbersNotice(_maxNumber + 1),
                   style: const TextStyle(color: Colors.white54, fontSize: 12.0),
                 ),
               ),
@@ -242,9 +254,9 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
                   Expanded(
                     child: Row(
                       children: [
-                        const Text(
-                          'Modalità Tombola',
-                          style: TextStyle(
+                        Text(
+                          l10n.tombolaModeTitle,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 14.5,
                             fontWeight: FontWeight.bold,
@@ -258,9 +270,9 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
                             color: theme.primaryAccent,
                           ),
                           onPressed: () => _showTombolaInfo(context),
-                          tooltip: 'Come funziona la modalità Tombola?',
-                          constraints: const BoxConstraints(),
-                          padding: const EdgeInsets.all(4.0),
+                          tooltip: l10n.tombolaInfoTooltip,
+                          constraints: const BoxConstraints(minWidth: 44.0, minHeight: 44.0),
+                          padding: const EdgeInsets.all(8.0),
                         ),
                       ],
                     ),
@@ -287,13 +299,80 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
                     Navigator.of(context).pop();
                   },
                   icon: const Icon(Icons.refresh_rounded, size: 18.0, color: Colors.orangeAccent),
-                  label: const Text(
-                    'Azzera partita Tombola in corso',
-                    style: TextStyle(color: Colors.orangeAccent, fontSize: 13.0),
+                  label: Text(
+                    l10n.resetOngoingTombola,
+                    style: const TextStyle(color: Colors.orangeAccent, fontSize: 13.0),
                   ),
                 ),
               ),
             ],
+
+            const SizedBox(height: 12.0),
+            Divider(color: Colors.white.withValues(alpha: 0.12), height: 1.0),
+            const SizedBox(height: 14.0),
+
+            // 4. Selezione Lingua (menu a tendina senza bandierine)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.language_rounded, color: theme.primaryAccent, size: 20.0),
+                    const SizedBox(width: 8.0),
+                    Text(
+                      l10n.languageLabel,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.5,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.06),
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                      color: theme.primaryAccent.withValues(alpha: 0.45),
+                    ),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String?>(
+                      value: _selectedLocale?.languageCode,
+                      dropdownColor: const Color(0xFF092815),
+                      icon: Icon(Icons.arrow_drop_down_rounded, color: theme.primaryAccent),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13.5,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      onChanged: (String? val) {
+                        setState(() {
+                          _selectedLocale = val != null ? Locale(val) : null;
+                        });
+                      },
+                      items: [
+                        DropdownMenuItem<String?>(
+                          value: null,
+                          child: Text(l10n.languageSystem),
+                        ),
+                        DropdownMenuItem<String?>(
+                          value: 'it',
+                          child: Text(l10n.languageItalian),
+                        ),
+                        DropdownMenuItem<String?>(
+                          value: 'en',
+                          child: Text(l10n.languageEnglish),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
 
             const SizedBox(height: 22.0),
 
@@ -303,7 +382,7 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
               children: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Annulla', style: TextStyle(color: Colors.white60)),
+                  child: Text(l10n.cancel, style: const TextStyle(color: Colors.white60)),
                 ),
                 const SizedBox(width: 10.0),
                 ElevatedButton(
@@ -314,6 +393,10 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
                       isTombolaMode: _isTombolaMode,
                     );
                     widget.controller.updateSettings(newSettings);
+                    final scope = LocaleScope.of(context);
+                    if (scope != null && scope.locale != _selectedLocale) {
+                      scope.onLocaleChanged(_selectedLocale);
+                    }
                     Navigator.of(context).pop();
                   },
                   style: ElevatedButton.styleFrom(
@@ -324,9 +407,9 @@ class _ExtractionSettingsDialogState extends State<ExtractionSettingsDialog> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
-                  child: const Text(
-                    'Applica',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.5),
+                  child: Text(
+                    l10n.apply,
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14.5),
                   ),
                 ),
               ],

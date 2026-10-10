@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_en.dart';
 import 'app_localizations_it.dart';
 
 // ignore_for_file: type=lint
@@ -92,7 +93,10 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('it')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('it'),
+  ];
 
   /// No description provided for @appTitle.
   ///
@@ -135,6 +139,18 @@ abstract class AppLocalizations {
   /// In it, this message translates to:
   /// **'1 ➔ 90'**
   String get sortAscending;
+
+  /// No description provided for @sortAscendingSemantics.
+  ///
+  /// In it, this message translates to:
+  /// **'Numeri in ordine crescente'**
+  String get sortAscendingSemantics;
+
+  /// No description provided for @sortDrawOrderSemantics.
+  ///
+  /// In it, this message translates to:
+  /// **'Numeri in ordine di estrazione'**
+  String get sortDrawOrderSemantics;
 
   /// No description provided for @info.
   ///
@@ -255,6 +271,180 @@ abstract class AppLocalizations {
   /// In it, this message translates to:
   /// **'Chiudi'**
   String get closeDialog;
+
+  /// No description provided for @extractionSettingsTitle.
+  ///
+  /// In it, this message translates to:
+  /// **'Impostazioni Estrazione'**
+  String get extractionSettingsTitle;
+
+  /// No description provided for @numbersToExtractLabel.
+  ///
+  /// In it, this message translates to:
+  /// **'Numeri da estrarre:'**
+  String get numbersToExtractLabel;
+
+  /// No description provided for @extractRangeLabel.
+  ///
+  /// In it, this message translates to:
+  /// **'Estrai numeri da 1 a:'**
+  String get extractRangeLabel;
+
+  /// No description provided for @hiddenNumbersNotice.
+  ///
+  /// In it, this message translates to:
+  /// **'I numeri da {start} a 90 resteranno nascosti sul tabellone.'**
+  String hiddenNumbersNotice(int start);
+
+  /// No description provided for @tombolaModeTitle.
+  ///
+  /// In it, this message translates to:
+  /// **'Modalità Tombola'**
+  String get tombolaModeTitle;
+
+  /// No description provided for @tombolaInfoTooltip.
+  ///
+  /// In it, this message translates to:
+  /// **'Come funziona la modalità Tombola?'**
+  String get tombolaInfoTooltip;
+
+  /// No description provided for @tombolaExplanation.
+  ///
+  /// In it, this message translates to:
+  /// **'In modalità Tombola le estrazioni sono progressive e senza reinserimento:\n\n• I numeri estratti non tornano disponibili sul tabellone e restano segnati.\n• Alla successiva estrazione, i numeri nei cerchi scendono sul tabellone posizionandosi e oscurandosi nella loro casella per fare spazio ai nuovi estratti.\n• La sessione prosegue fino all\'esaurimento dei numeri sul tabellone.'**
+  String get tombolaExplanation;
+
+  /// No description provided for @understood.
+  ///
+  /// In it, this message translates to:
+  /// **'Ho capito'**
+  String get understood;
+
+  /// No description provided for @resetOngoingTombola.
+  ///
+  /// In it, this message translates to:
+  /// **'Azzera partita Tombola in corso'**
+  String get resetOngoingTombola;
+
+  /// No description provided for @cancel.
+  ///
+  /// In it, this message translates to:
+  /// **'Annulla'**
+  String get cancel;
+
+  /// No description provided for @apply.
+  ///
+  /// In it, this message translates to:
+  /// **'Applica'**
+  String get apply;
+
+  /// No description provided for @openSettingsSemantics.
+  ///
+  /// In it, this message translates to:
+  /// **'{count, plural, =1{Apri impostazioni estrazione: 1 numero da 1 a {max}} other{Apri impostazioni estrazione: {count} numeri da 1 a {max}}}'**
+  String openSettingsSemantics(int count, int max);
+
+  /// No description provided for @tombolaCompletedBadge.
+  ///
+  /// In it, this message translates to:
+  /// **'TOMBOLA COMPLETATA'**
+  String get tombolaCompletedBadge;
+
+  /// No description provided for @tombolaRemainingBadge.
+  ///
+  /// In it, this message translates to:
+  /// **'{count, plural, =1{TOMBOLA (1 RIMASTO)} other{TOMBOLA ({count} RIMASTI)}}'**
+  String tombolaRemainingBadge(int count);
+
+  /// No description provided for @standardDrawnBadge.
+  ///
+  /// In it, this message translates to:
+  /// **'{count, plural, =1{1 ESTRATTO • 1-{max}} other{{count} ESTRATTI • 1-{max}}}'**
+  String standardDrawnBadge(int count, int max);
+
+  /// No description provided for @shareCombinationTooltip.
+  ///
+  /// In it, this message translates to:
+  /// **'Condividi combinazione estratta'**
+  String get shareCombinationTooltip;
+
+  /// No description provided for @tombolaCompletedBanner.
+  ///
+  /// In it, this message translates to:
+  /// **'Tombola completata!'**
+  String get tombolaCompletedBanner;
+
+  /// No description provided for @tombolaRemainingBanner.
+  ///
+  /// In it, this message translates to:
+  /// **'{count, plural, =1{Tombola: 1 numero sul tabellone} other{Tombola: {count} numeri sul tabellone}}'**
+  String tombolaRemainingBanner(int count);
+
+  /// No description provided for @newGame.
+  ///
+  /// In it, this message translates to:
+  /// **'Nuova Partita'**
+  String get newGame;
+
+  /// No description provided for @versionLabel.
+  ///
+  /// In it, this message translates to:
+  /// **'{appName} Versione {version}'**
+  String versionLabel(String appName, String version);
+
+  /// No description provided for @appSubtitle.
+  ///
+  /// In it, this message translates to:
+  /// **'Generatore numeri per Tombola e Lotterie'**
+  String get appSubtitle;
+
+  /// No description provided for @createdBy.
+  ///
+  /// In it, this message translates to:
+  /// **'Creato da {author}'**
+  String createdBy(String author);
+
+  /// No description provided for @boardSemanticsLabel.
+  ///
+  /// In it, this message translates to:
+  /// **'Tabellone di estrazione'**
+  String get boardSemanticsLabel;
+
+  /// No description provided for @noNumbersDrawnYet.
+  ///
+  /// In it, this message translates to:
+  /// **'Nessun numero ancora estratto'**
+  String get noNumbersDrawnYet;
+
+  /// No description provided for @drawnNumbersSemantics.
+  ///
+  /// In it, this message translates to:
+  /// **'Numeri estratti: {numbers}'**
+  String drawnNumbersSemantics(String numbers);
+
+  /// No description provided for @languageLabel.
+  ///
+  /// In it, this message translates to:
+  /// **'Lingua:'**
+  String get languageLabel;
+
+  /// No description provided for @languageSystem.
+  ///
+  /// In it, this message translates to:
+  /// **'Predefinita di sistema'**
+  String get languageSystem;
+
+  /// No description provided for @languageItalian.
+  ///
+  /// In it, this message translates to:
+  /// **'Italiano'**
+  String get languageItalian;
+
+  /// No description provided for @languageEnglish.
+  ///
+  /// In it, this message translates to:
+  /// **'Inglese'**
+  String get languageEnglish;
 }
 
 class _AppLocalizationsDelegate
@@ -268,7 +458,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['it'].contains(locale.languageCode);
+      <String>['en', 'it'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -277,6 +467,8 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
     case 'it':
       return AppLocalizationsIt();
   }

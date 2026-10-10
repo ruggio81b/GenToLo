@@ -275,9 +275,10 @@ void main() {
       // Fondamentale: non deve essere considerata finita perché 2 numeri sono ancora da estrarre!
       expect(controller.isTombolaFinished, isFalse);
 
-      // Verifica nel ControlPanel: deve indicare 2 numeri nel sacchetto, non "Tombola completata!"
+      // Verifica nel ControlPanel: deve indicare 2 numeri sul tabellone, non "Tombola completata!"
       await tester.pumpWidget(
         MaterialApp(
+          locale: const Locale('it'),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           home: Scaffold(body: ControlPanel(controller: controller)),
@@ -285,7 +286,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Tombola: 2 numeri nel sacchetto'), findsOneWidget);
+      expect(find.text('Tombola: 2 numeri sul tabellone'), findsOneWidget);
       expect(find.text('Tombola completata!'), findsNothing);
 
       controller.dispose();
@@ -297,7 +298,7 @@ void main() {
         initialSettings: const ExtractionSettings(drawCount: 5, maxNumber: 7, isTombolaMode: true),
       );
 
-      // 5 numeri estratti su 7: rimangono 2 numeri nel sacchetto
+      // 5 numeri estratti su 7: rimangono 2 numeri sul tabellone
       controller.tombolaExtractedNumbers.addAll([1, 2, 3, 4, 5]);
       expect(controller.remainingTombolaCount, equals(2));
       expect(controller.isTombolaFinished, isFalse);
@@ -317,7 +318,7 @@ void main() {
       controller.dispose();
     });
 
-    testWidgets('Singular/Plural format corretto per 1 numero rimasto nel sacchetto', (WidgetTester tester) async {
+    testWidgets('Singular/Plural format corretto per 1 numero rimasto sul tabellone', (WidgetTester tester) async {
       final controller = LotteryController(
         vsync: tester,
         initialSettings: const ExtractionSettings(drawCount: 4, maxNumber: 5, isTombolaMode: true),
@@ -330,6 +331,7 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
+          locale: const Locale('it'),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           home: Scaffold(body: ControlPanel(controller: controller)),
@@ -337,7 +339,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Tombola: 1 numero nel sacchetto'), findsOneWidget);
+      expect(find.text('Tombola: 1 numero sul tabellone'), findsOneWidget);
 
       controller.dispose();
     });

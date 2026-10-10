@@ -3,8 +3,10 @@
 ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=flat&logo=Flutter&logoColor=white)
 ![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=flat&logo=dart&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=flat&logo=android&logoColor=white)
-![Version](https://img.shields.io/badge/version-1.0.0--final-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)
+
+> 🌐 **Lingua / Language**: **Italiano** | [English](README.en.md)
 
 **GenToLo** (acronimo di *«Generatore numeri per Tombola e Lotterie»*) è un simulatore e generatore casuale di combinazioni numeriche completamente configurabile, sviluppato in **Flutter & Dart** con motore di animazione e rendering grafico vettoriale 3D personalizzato su Canvas.
 

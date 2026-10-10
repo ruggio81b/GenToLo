@@ -6,6 +6,7 @@ import 'package:gentolo/models/extraction_settings.dart';
 class SettingsService {
   static const String _keyDrawCount = 'settings_draw_count';
   static const String _keyMaxNumber = 'settings_max_number';
+  static const String _keyLanguageCode = 'settings_language_code';
 
   final SharedPreferences? _prefs;
 
@@ -47,6 +48,41 @@ class SettingsService {
     } catch (e, stackTrace) {
       developer.log(
         'Errore durante il salvataggio delle impostazioni',
+        error: e,
+        stackTrace: stackTrace,
+        name: 'SettingsService',
+      );
+    }
+  }
+
+  /// Carica il codice lingua memorizzato (es. 'it', 'en'), oppure null se predefinito di sistema.
+  Future<String?> loadLanguageCode() async {
+    try {
+      final prefs = _prefs ?? await SharedPreferences.getInstance();
+      return prefs.getString(_keyLanguageCode);
+    } catch (e, stackTrace) {
+      developer.log(
+        'Errore durante il caricamento del codice lingua, uso default di sistema',
+        error: e,
+        stackTrace: stackTrace,
+        name: 'SettingsService',
+      );
+      return null;
+    }
+  }
+
+  /// Salva il codice lingua selezionato nel local storage (passare null per ripristinare il default di sistema).
+  Future<void> saveLanguageCode(String? languageCode) async {
+    try {
+      final prefs = _prefs ?? await SharedPreferences.getInstance();
+      if (languageCode == null || languageCode.isEmpty) {
+        await prefs.remove(_keyLanguageCode);
+      } else {
+        await prefs.setString(_keyLanguageCode, languageCode);
+      }
+    } catch (e, stackTrace) {
+      developer.log(
+        'Errore durante il salvataggio del codice lingua',
         error: e,
         stackTrace: stackTrace,
         name: 'SettingsService',

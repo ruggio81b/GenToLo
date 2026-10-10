@@ -22,7 +22,7 @@ class LotteryScenePainter extends CustomPainter {
     const theme = AppTheme.defaultTheme;
     final socketCount = controller.drawCount;
 
-    const topMargin = 16.0;
+    const topMargin = 7.0;
     const horizontalPadding = 16.0;
     final availableWidth = size.width - 2 * horizontalPadding;
 
@@ -31,7 +31,7 @@ class LotteryScenePainter extends CustomPainter {
     // Da 6 a 10 numeri: dimensione scalata proporzionalmente per ospitare tutti gli alloggiamenti
     final effectiveCols = math.max(5, socketCount);
     final maxSocketDiameter = math.min(
-      52.0,
+      54.0,
       (availableWidth / effectiveCols) - 6.0,
     );
     final socketRadius = maxSocketDiameter / 2;

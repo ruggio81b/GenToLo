@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gentolo/main.dart';
+import 'package:gentolo/models/extraction_settings.dart';
 
 void main() {
   testWidgets('Smoke test di GenToLo: verifica presenza elementi chiave ed estrazione', (WidgetTester tester) async {
-    await tester.pumpWidget(const GenToLoApp());
+    await tester.pumpWidget(const GenToLoApp(locale: Locale('it')));
     await tester.pumpAndSettle();
 
     // Verifica titolo applicazione e indicatore iniziale
@@ -22,7 +24,7 @@ void main() {
     await tester.tap(find.text('Info'));
     await tester.pumpAndSettle();
     expect(find.text('Informazioni'), findsOneWidget);
-    expect(find.text('GenToLo Versione 1.0.0'), findsOneWidget);
+    expect(find.text('GenToLo Versione 1.1.0'), findsOneWidget);
     expect(find.text('Creato da Fabrizio Ruggiano'), findsOneWidget);
     expect(find.text('I 3 METODI DI ESTRAZIONE'), findsOneWidget);
 
@@ -49,7 +51,7 @@ void main() {
   });
 
   testWidgets('Test apertura finestrella impostazioni, info Tombola ed estrazione', (WidgetTester tester) async {
-    await tester.pumpWidget(const GenToLoApp());
+    await tester.pumpWidget(const GenToLoApp(locale: Locale('it')));
     await tester.pumpAndSettle();
 
     // Tocco sul badge impostazioni GenToLo
@@ -85,5 +87,53 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Ordina'), findsOneWidget);
+  });
+
+  testWidgets('Test cambio lingua da dialog impostazioni (Italiano -> English)', (WidgetTester tester) async {
+    await tester.pumpWidget(const GenToLoApp(initialLocale: Locale('it')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Casuale'), findsOneWidget);
+
+    // Apri impostazioni
+    await tester.tap(find.text('GenToLo'));
+    await tester.pumpAndSettle();
+
+    // Verifica presenza opzione lingua
+    expect(find.text('Lingua:'), findsOneWidget);
+
+    // Tocco sul dropdown per selezionare Inglese
+    await tester.tap(find.text('Italiano'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Inglese').last);
+    await tester.pumpAndSettle();
+
+    // Applica
+    await tester.tap(find.text('Applica'));
+    await tester.pumpAndSettle();
+
+    // Ora l'app deve mostrare i testi in inglese!
+    expect(find.text('Random'), findsOneWidget);
+    expect(find.text('Exclusion'), findsOneWidget);
+    expect(find.text('Combination'), findsOneWidget);
+  });
+
+  testWidgets('Test formato singolare badge e semantica con drawCount = 1', (WidgetTester tester) async {
+    await tester.pumpWidget(const GenToLoApp(
+      initialLocale: Locale('it'),
+      initialSettings: ExtractionSettings(drawCount: 1, maxNumber: 90),
+    ));
+    await tester.pumpAndSettle();
+
+    // In italiano con 1 numero deve mostrare "1 ESTRATTO • 1-90"
+    expect(find.text('1 ESTRATTO • 1-90'), findsOneWidget);
+
+    expect(
+      find.byWidgetPredicate(
+        (w) => w is Semantics && w.properties.label?.contains('1 numero da 1 a 90') == true,
+      ),
+      findsOneWidget,
+    );
   });
 }

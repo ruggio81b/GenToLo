@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gentolo/main.dart';
 
 void main() {
   group('GenToLo Methods Animation & Flow Tests', () {
     testWidgets('Test completo metodo Esclusione con verifica ricomposizione e Combinazione', (WidgetTester tester) async {
-      await tester.pumpWidget(const GenToLoApp());
+      await tester.pumpWidget(const GenToLoApp(locale: Locale('it')));
       await tester.pumpAndSettle();
 
       // Clicca su Esclusione

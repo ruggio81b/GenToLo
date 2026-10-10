@@ -28,56 +28,111 @@ void main() async {
 
   const settingsService = SettingsService();
   final initialSettings = await settingsService.loadSettings();
+  final savedLanguage = await settingsService.loadLanguageCode();
+  final initialLocale = savedLanguage != null ? Locale(savedLanguage) : null;
 
   runApp(GenToLoApp(
+    initialLocale: initialLocale,
     initialSettings: initialSettings,
     settingsService: settingsService,
   ));
 }
 
-class GenToLoApp extends StatelessWidget {
+/// Scope che consente ai widget discendenti di leggere e modificare dinamicamente il [Locale] attivo.
+class LocaleScope extends InheritedWidget {
+  final Locale? locale;
+  final ValueChanged<Locale?> onLocaleChanged;
+
+  const LocaleScope({
+    super.key,
+    required this.locale,
+    required this.onLocaleChanged,
+    required super.child,
+  });
+
+  static LocaleScope? of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<LocaleScope>();
+
+  @override
+  bool updateShouldNotify(LocaleScope oldWidget) => locale != oldWidget.locale;
+}
+
+class GenToLoApp extends StatefulWidget {
   static const String appName = 'GenToLo';
   static const String appTitle = 'GenToLo - Generatore numeri casuali';
-  static const String appVersion = '1.0.0';
+  static const String appVersion = '1.1.0';
   static const String appAuthor = 'Fabrizio Ruggiano';
   static const String appLegalese = '© 2026 Fabrizio Ruggiano — GNU General Public License v3.0';
 
-  /// Lingua attiva dell'applicazione (rilasciata in lingua Italiana).
+  final Locale? initialLocale;
   final Locale? locale;
   final ExtractionSettings? initialSettings;
   final SettingsService? settingsService;
 
   const GenToLoApp({
     super.key,
-    this.locale = const Locale('it'),
+    this.initialLocale,
+    this.locale,
     this.initialSettings,
     this.settingsService,
   });
 
   @override
+  State<GenToLoApp> createState() => _GenToLoAppState();
+}
+
+class _GenToLoAppState extends State<GenToLoApp> {
+  Locale? _currentLocale;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentLocale = widget.locale ?? widget.initialLocale;
+  }
+
+  @override
+  void didUpdateWidget(GenToLoApp oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.locale != null && widget.locale != oldWidget.locale) {
+      _currentLocale = widget.locale;
+    }
+  }
+
+  void _onLocaleChanged(Locale? newLocale) {
+    setState(() {
+      _currentLocale = newLocale;
+    });
+    widget.settingsService?.saveLanguageCode(newLocale?.languageCode);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: appTitle,
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.themeData,
-      locale: locale,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      builder: (context, child) {
-        final mediaQuery = MediaQuery.of(context);
-        return MediaQuery(
-          data: mediaQuery.copyWith(
-            textScaler: mediaQuery.textScaler.clamp(
-              minScaleFactor: 0.85,
-              maxScaleFactor: 1.25,
+    return LocaleScope(
+      locale: _currentLocale,
+      onLocaleChanged: _onLocaleChanged,
+      child: MaterialApp(
+        onGenerateTitle: (context) => AppLocalizations.of(context)?.appTitle ?? GenToLoApp.appTitle,
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.themeData,
+        locale: _currentLocale,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        builder: (context, child) {
+          final mediaQuery = MediaQuery.of(context);
+          return MediaQuery(
+            data: mediaQuery.copyWith(
+              textScaler: mediaQuery.textScaler.clamp(
+                minScaleFactor: 0.85,
+                maxScaleFactor: 1.25,
+              ),
             ),
-          ),
-          child: child!,
-        );
-      },
-      home: LotteryScreen(
-        initialSettings: initialSettings,
-        settingsService: settingsService,
+            child: child!,
+          );
+        },
+        home: LotteryScreen(
+          initialSettings: widget.initialSettings,
+          settingsService: widget.settingsService,
+        ),
       ),
     );
   }

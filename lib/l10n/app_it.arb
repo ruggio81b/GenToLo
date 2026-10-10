@@ -7,6 +7,8 @@
   "combinationMethod": "Combinazione",
   "sort": "Ordina",
   "sortAscending": "1 ➔ 90",
+  "sortAscendingSemantics": "Numeri in ordine crescente",
+  "sortDrawOrderSemantics": "Numeri in ordine di estrazione",
   "info": "Info",
   "shareError": "Impossibile condividere la combinazione",
   "infoTitle": "Informazioni",
@@ -29,5 +31,83 @@
   "privacyPolicyNoAdsTitle": "Zero Pubblicità e Tracciamento",
   "privacyPolicyNoAdsDesc": "GenToLo non integra SDK pubblicitari, framework di analisi (come Firebase o Google Analytics) né strumenti di telemetria.",
   "privacyPolicyOwner": "Titolare del Trattamento: Fabrizio Ruggiano (ruggio81b@gmail.com)",
-  "closeDialog": "Chiudi"
+  "closeDialog": "Chiudi",
+
+  "extractionSettingsTitle": "Impostazioni Estrazione",
+  "numbersToExtractLabel": "Numeri da estrarre:",
+  "extractRangeLabel": "Estrai numeri da 1 a:",
+  "hiddenNumbersNotice": "I numeri da {start} a 90 resteranno nascosti sul tabellone.",
+  "@hiddenNumbersNotice": {
+    "placeholders": {
+      "start": { "type": "int" }
+    }
+  },
+  "tombolaModeTitle": "Modalità Tombola",
+  "tombolaInfoTooltip": "Come funziona la modalità Tombola?",
+  "tombolaExplanation": "In modalità Tombola le estrazioni sono progressive e senza reinserimento:\n\n• I numeri estratti non tornano disponibili sul tabellone e restano segnati.\n• Alla successiva estrazione, i numeri nei cerchi scendono sul tabellone posizionandosi e oscurandosi nella loro casella per fare spazio ai nuovi estratti.\n• La sessione prosegue fino all'esaurimento dei numeri sul tabellone.",
+  "understood": "Ho capito",
+  "resetOngoingTombola": "Azzera partita Tombola in corso",
+  "cancel": "Annulla",
+  "apply": "Applica",
+
+  "openSettingsSemantics": "{count, plural, =1{Apri impostazioni estrazione: 1 numero da 1 a {max}} other{Apri impostazioni estrazione: {count} numeri da 1 a {max}}}",
+  "@openSettingsSemantics": {
+    "placeholders": {
+      "count": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+  "tombolaCompletedBadge": "TOMBOLA COMPLETATA",
+  "tombolaRemainingBadge": "{count, plural, =1{TOMBOLA (1 RIMASTO)} other{TOMBOLA ({count} RIMASTI)}}",
+  "@tombolaRemainingBadge": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "standardDrawnBadge": "{count, plural, =1{1 ESTRATTO • 1-{max}} other{{count} ESTRATTI • 1-{max}}}",
+  "@standardDrawnBadge": {
+    "placeholders": {
+      "count": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+  "shareCombinationTooltip": "Condividi combinazione estratta",
+
+  "tombolaCompletedBanner": "Tombola completata!",
+  "tombolaRemainingBanner": "{count, plural, =1{Tombola: 1 numero sul tabellone} other{Tombola: {count} numeri sul tabellone}}",
+  "@tombolaRemainingBanner": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "newGame": "Nuova Partita",
+
+  "versionLabel": "{appName} Versione {version}",
+  "@versionLabel": {
+    "placeholders": {
+      "appName": { "type": "String" },
+      "version": { "type": "String" }
+    }
+  },
+  "appSubtitle": "Generatore numeri per Tombola e Lotterie",
+  "createdBy": "Creato da {author}",
+  "@createdBy": {
+    "placeholders": {
+      "author": { "type": "String" }
+    }
+  },
+
+  "boardSemanticsLabel": "Tabellone di estrazione",
+  "noNumbersDrawnYet": "Nessun numero ancora estratto",
+  "drawnNumbersSemantics": "Numeri estratti: {numbers}",
+  "@drawnNumbersSemantics": {
+    "placeholders": {
+      "numbers": { "type": "String" }
+    }
+  },
+
+  "languageLabel": "Lingua:",
+  "languageSystem": "Predefinita di sistema",
+  "languageItalian": "Italiano",
+  "languageEnglish": "Inglese"
 }

@@ -1,0 +1,113 @@
+{
+  "@@locale": "en",
+  "appTitle": "GenToLo - Random Number Generator",
+  "close": "Close",
+  "randomMethod": "Random",
+  "exclusionMethod": "Exclusion",
+  "combinationMethod": "Combination",
+  "sort": "Sort",
+  "sortAscending": "1 ➔ 90",
+  "sortAscendingSemantics": "Numbers in ascending order",
+  "sortDrawOrderSemantics": "Numbers in extraction order",
+  "info": "Info",
+  "shareError": "Couldn't share the combination",
+  "infoTitle": "Information",
+  "methodsSectionTitle": "THE 3 DRAWING METHODS",
+  "casualeDesc": "Direct random draw of numbers from the board, with no repeats.",
+  "@casualeDesc": {},
+  "esclusioneDesc": "Numbers are randomly discarded from the board, one at a time, until only the chosen quantity of \"survivors\" remains.",
+  "@esclusioneDesc": {},
+  "combinazioneDesc": "Randomly shuffles all the numbers on the board, then takes as many positions as the quantity you chose.",
+  "@combinazioneDesc": {},
+  "disclaimerText": "GenToLo (Number Generator for Tombola and Lotteries) is an independent random generator and numerical simulator developed for recreational purposes. The app does not handle bets, does not guarantee any winnings, and is not affiliated with any games or prize contests.",
+  "openSourceLicenses": "Open Source Licenses",
+  "privacyPolicy": "Privacy Policy",
+  "privacyPolicyOfflineTitle": "100% Offline & Privacy by Design",
+  "privacyPolicyOfflineDesc": "The app works entirely on your device and does not request Internet access permission. No information ever leaves your device.",
+  "privacyPolicyNoDataTitle": "No Personal Data Collected",
+  "privacyPolicyNoDataDesc": "No personal data, device identifiers or usage statistics are collected. Drawn numbers exist only in temporary memory; only your selected game preferences are stored on the device.",
+  "privacyPolicySharingTitle": "Number Sharing",
+  "privacyPolicySharingDesc": "The optional sharing feature uses only the native system share sheet. No data passes through the developer's servers.",
+  "privacyPolicyNoAdsTitle": "Zero Ads & Zero Tracking",
+  "privacyPolicyNoAdsDesc": "GenToLo includes no advertising SDKs, analytics frameworks (such as Firebase or Google Analytics) or telemetry tools.",
+  "privacyPolicyOwner": "Data Controller: Fabrizio Ruggiano (ruggio81b@gmail.com)",
+  "closeDialog": "Close",
+
+  "extractionSettingsTitle": "Draw Settings",
+  "numbersToExtractLabel": "Numbers to draw:",
+  "extractRangeLabel": "Draw numbers from 1 to:",
+  "hiddenNumbersNotice": "Numbers from {start} to 90 will stay hidden on the board.",
+  "@hiddenNumbersNotice": {
+    "placeholders": {
+      "start": { "type": "int" }
+    }
+  },
+  "tombolaModeTitle": "Tombola Mode",
+  "tombolaInfoTooltip": "How does Tombola mode work?",
+  "tombolaExplanation": "In Tombola mode, draws are progressive and numbers are never put back:\n\n• Drawn numbers don't return to the board and stay marked.\n• At the next draw, the numbers in the circles drop onto the board, settling and dimming in their cell to make room for the newly drawn ones.\n• The session continues until all numbers on the board are drawn.",
+  "understood": "Got it",
+  "resetOngoingTombola": "Reset Tombola game in progress",
+  "cancel": "Cancel",
+  "apply": "Apply",
+
+  "openSettingsSemantics": "{count, plural, =1{Open draw settings: 1 number from 1 to {max}} other{Open draw settings: {count} numbers from 1 to {max}}}",
+  "@openSettingsSemantics": {
+    "placeholders": {
+      "count": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+  "tombolaCompletedBadge": "TOMBOLA COMPLETED",
+  "tombolaRemainingBadge": "{count, plural, =1{TOMBOLA (1 LEFT)} other{TOMBOLA ({count} LEFT)}}",
+  "@tombolaRemainingBadge": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "standardDrawnBadge": "{count} DRAWN • 1-{max}",
+  "@standardDrawnBadge": {
+    "placeholders": {
+      "count": { "type": "int" },
+      "max": { "type": "int" }
+    }
+  },
+  "shareCombinationTooltip": "Share drawn combination",
+
+  "tombolaCompletedBanner": "Tombola completed!",
+  "tombolaRemainingBanner": "{count, plural, =1{Tombola: 1 number on the board} other{Tombola: {count} numbers on the board}}",
+  "@tombolaRemainingBanner": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "newGame": "New Game",
+
+  "versionLabel": "{appName} Version {version}",
+  "@versionLabel": {
+    "placeholders": {
+      "appName": { "type": "String" },
+      "version": { "type": "String" }
+    }
+  },
+  "appSubtitle": "Number Generator for Tombola and Lotteries",
+  "createdBy": "Created by {author}",
+  "@createdBy": {
+    "placeholders": {
+      "author": { "type": "String" }
+    }
+  },
+
+  "boardSemanticsLabel": "Number board",
+  "noNumbersDrawnYet": "No numbers drawn yet",
+  "drawnNumbersSemantics": "Drawn numbers: {numbers}",
+  "@drawnNumbersSemantics": {
+    "placeholders": {
+      "numbers": { "type": "String" }
+    }
+  },
+
+  "languageLabel": "Language:",
+  "languageSystem": "System default",
+  "languageItalian": "Italian",
+  "languageEnglish": "English"
+}

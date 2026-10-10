@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gentolo/controllers/lottery_controller.dart';
+import 'package:gentolo/l10n/app_localizations.dart';
 import 'package:gentolo/models/extraction_settings.dart';
 import 'package:gentolo/painters/lottery_scene_painter.dart';
 import 'package:gentolo/services/settings_service.dart';
@@ -50,6 +51,7 @@ class _LotteryScreenState extends State<LotteryScreen>
         builder: (context, _) {
           const theme = AppTheme.defaultTheme;
           final navColor = theme.backgroundBottom;
+          final l10n = AppLocalizations.of(context)!;
 
           return AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle(
@@ -85,10 +87,10 @@ class _LotteryScreenState extends State<LotteryScreen>
                     Expanded(
                       child: Semantics(
                         container: true,
-                        label: 'Tabellone di estrazione',
+                        label: l10n.boardSemanticsLabel,
                         value: _controller.drawnNumbers.isEmpty
-                            ? 'Nessun numero ancora estratto'
-                            : 'Numeri estratti: ${_controller.formattedDrawnNumbers}',
+                            ? l10n.noNumbersDrawnYet
+                            : l10n.drawnNumbersSemantics(_controller.formattedDrawnNumbers),
                         child: LayoutBuilder(
                           builder: (context, constraints) {
                             return CustomPaint(

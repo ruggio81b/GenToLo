@@ -42,10 +42,10 @@ class LotteryController extends ChangeNotifier {
   int get maxNumber => settings.maxNumber;
   bool get isTombolaMode => settings.isTombolaMode;
 
-  /// Quanti numeri rimangono disponibili nel sacchetto della Tombola
+  /// Quanti numeri rimangono disponibili sul tabellone della Tombola
   int get remainingTombolaCount => math.max(0, maxNumber - tombolaExtractedNumbers.length);
 
-  /// Indica se la partita di Tombola è terminata per esaurimento numeri nel sacchetto
+  /// Indica se la partita di Tombola è terminata per esaurimento numeri sul tabellone
   bool get isTombolaFinished => isTombolaMode && remainingTombolaCount <= 0;
 
   /// Le 90 palline del tabellone
@@ -147,7 +147,7 @@ class LotteryController extends ChangeNotifier {
     return saveFuture;
   }
 
-  /// Reimposta la sessione di Tombola reintegrando tutti i numeri nel sacchetto
+  /// Reimposta la sessione di Tombola reintegrando tutti i numeri sul tabellone
   void resetTombolaSession() {
     if (isBusy) return;
     tombolaExtractedNumbers.clear();

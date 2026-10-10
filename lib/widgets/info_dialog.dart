@@ -37,8 +37,8 @@ class InfoDialog extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.close_rounded),
             color: theme.primaryAccent,
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
+            constraints: const BoxConstraints(minWidth: 44.0, minHeight: 44.0),
+            padding: const EdgeInsets.all(8.0),
             tooltip: l10n.close,
             onPressed: () => Navigator.of(context).pop(),
           ),
@@ -64,9 +64,9 @@ class InfoDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               // Intestazione Versione e Autore
-              const Text(
-                '${GenToLoApp.appName} Versione ${GenToLoApp.appVersion}',
-                style: TextStyle(
+              Text(
+                l10n.versionLabel(GenToLoApp.appName, GenToLoApp.appVersion),
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w900,
                   fontSize: 15.0,
@@ -74,9 +74,9 @@ class InfoDialog extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 2.0),
-              const Text(
-                'Generatore numeri per Tombola e Lotterie',
-                style: TextStyle(
+              Text(
+                l10n.appSubtitle,
+                style: const TextStyle(
                   color: Colors.white70,
                   fontSize: 12.0,
                   fontWeight: FontWeight.w500,
@@ -84,7 +84,7 @@ class InfoDialog extends StatelessWidget {
               ),
               const SizedBox(height: 2.0),
               Text(
-                'Creato da ${GenToLoApp.appAuthor}',
+                l10n.createdBy(GenToLoApp.appAuthor),
                 style: TextStyle(
                   color: theme.primaryAccent,
                   fontSize: 12.5,
@@ -151,9 +151,8 @@ class InfoDialog extends StatelessWidget {
                   children: [
                     TextButton.icon(
                       style: TextButton.styleFrom(
-                        visualDensity: VisualDensity.compact,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                        minimumSize: const Size(0, 44.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                       ),
                       onPressed: () => _showPrivacyPolicyDialog(context, l10n, theme),
                       icon: const Icon(Icons.privacy_tip_outlined, size: 14.0, color: Colors.white70),
@@ -166,12 +165,11 @@ class InfoDialog extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 2.0),
+                    const SizedBox(height: 6.0),
                     TextButton.icon(
                       style: TextButton.styleFrom(
-                        visualDensity: VisualDensity.compact,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                        minimumSize: const Size(0, 44.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                       ),
                       onPressed: () {
                         showLicensePage(
