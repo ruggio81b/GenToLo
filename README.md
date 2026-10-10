@@ -20,7 +20,7 @@ Il progetto rappresenta la moderna riscrittura ed espansione di un software amat
 * **Parametri personalizzabili**: Tramite l'apposita finestra delle impostazioni accessibile dal badge superiore, l'utente può scegliere:
   * **Quantità di estratti**: da 1 a 10 numeri contemporanei.
   * **Range numerico**: estrazione da 1 a un massimo configurabile (fino a 90).
-* **Modalità Tombola**: Consente estrazioni progressive sequenziali senza reinserimento dei numeri già estratti. Un contatore in tempo reale monitora i numeri rimanenti nel sacchetto fino al completamento della partita.
+* **Modalità Tombola**: Consente estrazioni progressive sequenziali senza reinserimento dei numeri già estratti. Un contatore in tempo reale monitora i numeri rimanenti nel tabellone fino al completamento della partita.
 * **Salvataggio automatico**: Le preferenze di estrazione vengono memorizzate in locale sul dispositivo.
 
 ### 2. I Tre Metodi di Estrazione
@@ -28,18 +28,18 @@ Il progetto rappresenta la moderna riscrittura ed espansione di un software amat
 * ❌ **Esclusione**: Selezione casuale di $(Totale - N)$ numeri che vengono progressivamente scartati ed espulsi dallo schermo con animazione dedicata. I rimanenti $N$ numeri superstiti vanno a comporre la combinazione estratta.
 * 🔀 **Combinazione**: Generazione di una permutazione casuale dei numeri sul tabellone, seguita dal sorteggio casuale di $N$ posizioni. I numeri posizionati nelle caselle sorteggiate vengono evidenziati ed estratti negli alloggiamenti superiori.
 
-### 3. Funzionalità e Comfort di Utilizzo
-* **Transizioni fluide senza stacchi**: Premendo un pulsante durante o dopo un'estrazione, le palline tornano ordinatamente sul tabellone prima di avviare il nuovo sorteggio.
-* **Ordinamento dinamico**: Pulsante **Ordina (1 ➔ 90)** per alternare a piacimento l'ordine naturale crescente con l'ordine originale di estrazione.
+### 3. Funzionalità
+* **Transizioni fluide**: Premendo un pulsante durante o dopo un'estrazione, le palline tornano ordinatamente sul tabellone prima di avviare il nuovo sorteggio.
+* **Ordinamento dinamico**: Pulsante **Ordina (1 ➔ 90)** per alternare l'ordine naturale crescente con l'ordine originale di estrazione.
 * **Condivisione rapida**: Pulsante dedicato per condividere istantaneamente i numeri estratti tramite il menu nativo di sistema.
-* **Funzionamento 100% Offline**: Nessuna richiesta di permessi di rete, zero telemetria, nessun tracciamento né pubblicità.
+* **Funzionamento Offline**: Nessuna richiesta di permessi di rete, zero telemetria, nessun tracciamento né pubblicità.
 
 ### 4. Grafica 3D e Ottimizzazione Rendering
-* **Rendering su Canvas**: Disegno vettoriale personalizzato con illuminazione zenitale, sfumature di luce, bordi scuri e ombre proiettate per conferire profondità sferica realistica.
-* **Prestazioni elevate**: Pre-caching dei testi e riutilizzo degli oggetti grafici per garantire animazioni fluide a 60/120 FPS senza microscatti.
+* **Rendering su Canvas**: Disegno vettoriale personalizzato con illuminazione dall'alto, sfumature di luce, bordi scuri e ombre proiettate per ottenere un effetto sferico realistico.
+* **Prestazioni ottimizzate**: Pre-caching dei testi e riutilizzo degli oggetti grafici per favorire animazioni fluide riducendo il rischio di microscatti.
 
-### 5. Generazione Casuale Sicura
-* **Sorgente crittografica basata su hardware**: Il motore di estrazione impiega il generatore crittograficamente sicuro di Dart (`Random.secure()`). L'entropia deriva direttamente dalle chiamate di sistema del dispositivo (`getrandom`/`/dev/urandom` su Android/Linux e `SecRandomCopyBytes`/Secure Enclave su iOS), alimentate dal generatore hardware di numeri casuali (TRNG) del processore, dal rumore termico e dai sensori fisici del dispositivo utilizzato.
+### 5. Generazione Numeri Casuali
+* **Sorgente crittografica**: Il motore di estrazione impiega il generatore crittograficamente sicuro di Dart (Random.secure()), basato sul CSPRNG del sistema operativo. L’entropia disponibile dipende dall’implementazione del kernel e dall’hardware del singolo dispositivo.
 * **Equiprobabilità algoritmica**: La selezione casuale senza ripetizione impiega l'algoritmo di permutazione di Fisher-Yates, garantendo la medesima probabilità uniforme a ogni estrazione.
 
 ---
@@ -118,7 +118,7 @@ flutter run
 
 ---
 
-## Note e Finalità del Software
+## Finalità del Software
 
 **GenToLo** è un software indipendente sviluppato esclusivamente a scopo ricreativo.
 
